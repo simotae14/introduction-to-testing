@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { add } from './arithmetic';
+import { add, subtract, multiply, divide } from './arithmetic';
 
 describe('add', () => {
   it('should add two positive numbers', () => {
@@ -7,8 +7,20 @@ describe('add', () => {
   });
 });
 
-describe.todo('subtract', () => {});
+describe('subtract', () => {
+  it('should subtract two positive numbers', () => {
+    expect(subtract(4, 2)).toBe(2);
+  });
+});
 
-describe.todo('multiply', () => {});
+describe('multiply', () => {
+  it('should multiply two numbers', () => {
+    expect(multiply(3, 2)).toBe(6);
+  });
+});
 
-describe.todo('divide', () => {});
+describe.todo('divide', () => {
+  it('should divide two numbers', () => {
+    expect(divide(10, 2)).toBe(5);
+  });
+});
