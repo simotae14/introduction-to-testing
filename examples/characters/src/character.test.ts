@@ -7,9 +7,11 @@ const lastName = 'Taeggi';
 const role = 'Warrior';
 
 describe('Character', () => {
+  let character;
+  beforeEach(() => {
+    character = new Character(firstName, lastName, role, 1, () => 15);
+  });
   it('should create a character with a first name, last name, and role', () => {
-    const character = new Character(firstName, lastName, role, 1, () => 15);
-
     /* 1st solution
     expect(character.firstName).toBe(firstName);
     expect(character.lastName).toBe(lastName);
@@ -44,8 +46,6 @@ describe('Character', () => {
   });
 
   it('should allow you to increase the level', () => {
-    const character = new Character(firstName, lastName, role);
-
     const initialLevel = character.level;
 
     character.levelUp();
@@ -54,7 +54,6 @@ describe('Character', () => {
   });
 
   it('should update the last modified date when leveling up', () => {
-    const character = new Character(firstName, lastName, role);
     const initialLastModified = character.lastModified;
 
     character.levelUp();
