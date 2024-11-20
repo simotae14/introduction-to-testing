@@ -22,13 +22,13 @@ describe('add', () => {
     expect(() => add(2, 'potato')).toThrow('not a number');
   });
 
-  it('should throw if the first argument is not a number', () => {
-    expect(() => add(NaN, 2)).toThrow(' not a number');
+  it('should throw an error if the first argument is not a number', () => {
+    expect(() => add(NaN, 2)).toThrow('not a number');
   });
 });
 
 describe('subtract', () => {
-  it('should subtract two positive numbers', () => {
+  it('should subtract one number from the other', () => {
     expect(subtract(4, 2)).toBe(2);
   });
 

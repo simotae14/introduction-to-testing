@@ -9,6 +9,7 @@ const role = 'Warrior';
 describe('Character', () => {
   let character;
   beforeEach(() => {
+    // firstName, lastName, role, level, rollDice
     character = new Character(firstName, lastName, role, 1, () => 15);
   });
   it('should create a character with a first name, last name, and role', () => {
