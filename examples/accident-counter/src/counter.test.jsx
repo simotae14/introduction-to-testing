@@ -10,9 +10,20 @@ describe.todo('Counter ', () => {
     render(<Counter />);
   });
 
-  it('renders with an initial count of 0');
+  it('renders with an initial count of 0', () => {
+    const counter = screen.getByTestId('counter');
+    expect(counter).toHaveTextContent('0');
+  });
 
-  it('disables the "Decrement" and "Reset" buttons when the count is 0');
+  it('disables the "Decrement" and "Reset" buttons when the count is 0', () => {
+    const decrementButton = screen.getByRole('button', {
+      name: /decrement/i,
+    });
+    const resetButton = screen.getByRole('button', { name: /reset/i });
+
+    expect(decrementButton).toBeDisabled();
+    expect(resetButton).toBeDisabled();
+  });
 
   it.todo('displays "days" when the count is 0', () => {});
 
