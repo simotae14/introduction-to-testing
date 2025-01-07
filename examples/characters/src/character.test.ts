@@ -11,7 +11,7 @@ describe('Character', () => {
   beforeEach(() => {
     vi.spyOn(Math, 'random').mockImplementation(() => 0.5);
     // firstName, lastName, role, level, rollDice
-    character = new Character(firstName, lastName, role, 1);
+    // character = new Character(firstName, lastName, role, 1);
   });
   it('should create a character with a first name, last name, and role', () => {
     /* 1st solution
@@ -61,5 +61,16 @@ describe('Character', () => {
     character.levelUp();
 
     expect(character.lastModified).not.toBe(initialLastModified);
+  });
+
+  it.only('should roll four six-sided die', () => {
+    const rollDiceMock = vi.fn(() => 15);
+    character = new Character(firstName, lastName, role, 1, rollDiceMock);
+
+    expect(character.strength).toBe(15);
+    expect(rollDiceMock).toHaveBeenCalledWith(4, 6);
+    expect(rollDiceMock).toHaveBeenCalledTimes(6);
+
+    console.log(rollDiceMock.mock.calls);
   });
 });
