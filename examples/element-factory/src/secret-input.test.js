@@ -30,12 +30,21 @@ describe('createSecretInput', async () => {
     expect(localStorage.getItem('secret')).toBe('my secret');
   });
 
-  it.only('should have loaded the secret from localStorage', async () => {
+  it('should have loaded the secret from localStorage', async () => {
     expect(screen.getByLabelText('Secret')).toHaveValue('test secret');
     expect(localStorage.getItem).toHaveBeenCalledWith('secret');
   });
 
-  it('should save the secret to localStorage', async () => {});
+  it.only('should save the secret to localStorage', async () => {
+    const input = screen.getByLabelText('Secret');
+    const button = screen.getByRole('button', { name: 'Store Secret' });
+
+    await userEvent.clear(input);
+    await userEvent.type(input, 'new secret');
+    await userEvent.click(button);
+
+    expect(localStorage.setItem).toHaveBeenCalledWith('secret', 'new secret');
+  });
 
   it('should clear the secret from localStorage', async () => {});
 });
