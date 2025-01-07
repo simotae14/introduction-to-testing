@@ -6,19 +6,19 @@ import { createSecretInput } from './secret-input.js';
 
 describe('createSecretInput', async () => {
   beforeEach(() => {
+    document.innerHTML = '';
+    document.body.appendChild(createSecretInput());
     localStorage.clear();
   });
 
   afterEach(() => {});
 
   it('should store the value in localStorage', async () => {
-    const secretInput = createSecretInput();
+    const input = screen.getByLabelText('Secret');
+    const button = screen.getByRole('button', { name: 'Store Secret' });
 
-    const input = secretInput.querySelector('input');
-    const button = secretInput.querySelector('button');
-
-    input.value = 'my secret';
-    button.click();
+    await userEvent.type(input, 'my secret');
+    await userEvent.click(button);
 
     // check the localStorage value
     expect(localStorage.getItem('secret')).toBe('my secret');
