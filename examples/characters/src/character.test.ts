@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Character } from './character.js';
 import { Person } from './person.js';
 
@@ -9,8 +9,9 @@ const role = 'Warrior';
 describe('Character', () => {
   let character;
   beforeEach(() => {
+    vi.spyOn(Math, 'random').mockImplementation(() => 0.5);
     // firstName, lastName, role, level, rollDice
-    character = new Character(firstName, lastName, role, 1, () => 15);
+    character = new Character(firstName, lastName, role, 1);
   });
   it('should create a character with a first name, last name, and role', () => {
     /* 1st solution
@@ -34,12 +35,12 @@ describe('Character', () => {
       firstName,
       lastName,
       role,
-      charisma: 15,
-      strength: 15,
-      intelligence: 15,
-      wisdom: 15,
-      dexterity: 15,
-      constitution: 15,
+      charisma: 12,
+      strength: 12,
+      intelligence: 12,
+      wisdom: 12,
+      dexterity: 12,
+      constitution: 12,
       level: 1,
       lastModified: expect.any(Date),
       createdAt: expect.any(Date),

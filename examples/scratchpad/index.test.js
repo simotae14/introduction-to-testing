@@ -10,22 +10,10 @@ test('a super simple test passing even if it is a wrong assertion', () => {
   }, 1000);
 });
 
-const logSpy = vi.spyOn(console, 'log');
+const randomSpy = vi.spyOn(Math, 'random').mockImplementation(() => 0.5);
 
-test('a super simple test with a spy', () => {
-  console.log('Hello, World!');
-  expect(logSpy).toBeCalled();
-  expect(logSpy).toBeCalledWith('Hello, World!');
-  expect(logSpy).toHaveBeenCalledOnce();
-  expect(logSpy).toHaveBeenCalledTimes(1);
-});
+test('a super simple test with a spy and mock', () => {
+  const result = Math.random();
 
-test('a super simple test with a mock', () => {
-  const mockFn = vi.fn();
-  mockFn('Hello, World!');
-
-  expect(mockFn).toBeCalled();
-  expect(mockFn).toBeCalledWith('Hello, World!');
-  expect(mockFn).toHaveBeenCalledOnce();
-  expect(mockFn).toHaveBeenCalledTimes(1);
+  expect(result).toBe(0.5);
 });
