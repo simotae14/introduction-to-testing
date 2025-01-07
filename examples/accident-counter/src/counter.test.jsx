@@ -1,21 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Counter } from './counter';
 
 import '@testing-library/jest-dom/vitest';
 
-describe.todo('Counter ', () => {
-  beforeEach(() => {
-    render(<Counter />);
-  });
-
+describe('Counter ', () => {
   it('renders with an initial count of 0', () => {
-    const counter = screen.getByTestId('counter');
+    render(<Counter />);
+    const counter = screen.getByTestId('counter-count');
     expect(counter).toHaveTextContent('0');
   });
 
   it('disables the "Decrement" and "Reset" buttons when the count is 0', () => {
+    render(<Counter />);
     const decrementButton = screen.getByRole('button', {
       name: /decrement/i,
     });
@@ -25,31 +23,117 @@ describe.todo('Counter ', () => {
     expect(resetButton).toBeDisabled();
   });
 
-  it.todo('displays "days" when the count is 0', () => {});
+  it('displays "days" when the count is 0', () => {
+    render(<Counter />);
+    const unit = screen.getByTestId('counter-unit');
+    expect(unit).toHaveTextContent('days');
+  });
 
-  it.todo(
+  it(
     'increments the count when the "Increment" button is clicked',
-    async () => {},
+    async () => {
+      render(<Counter />);
+      const incrementButton = screen.getByRole('button', {
+        name: /increment/i,
+      });
+      const counter = screen.getByTestId('counter-count');
+      
+      // act example
+      await act(async () => {
+        await userEvent.click(incrementButton);
+      })
+      
+      expect(counter).toHaveTextContent('1');
+    },
   );
 
-  it.todo('displays "day" when the count is 1', async () => {});
+  it('displays "day" when the count is 1', async () => {
+    render(<Counter />);
+    const incrementButton = screen.getByRole('button', {
+      name: /increment/i,
+    });
+    const unit = screen.getByTestId('counter-unit');
 
-  it.todo(
+    await act(async () => {
+      await userEvent.click(incrementButton);
+    });
+
+    expect(unit).toHaveTextContent('day');
+  });
+
+  it(
     'decrements the count when the "Decrement" button is clicked',
-    async () => {},
+    async () => {
+      render(<Counter initialCount={1} />);
+      const decrementButton = screen.getByRole('button', {
+        name: /decrement/i,
+      });
+      const counter = screen.getByTestId('counter-count');
+
+      expect(decrementButton).not.toBeDisabled();
+
+      await act(async () => {
+        await userEvent.click(decrementButton);
+      });
+
+      expect(counter).toHaveTextContent('0');
+    },
   );
 
-  it.todo('does not allow decrementing below 0', async () => {});
+  it('does not allow decrementing below 0', async () => {
+    render(<Counter />);
+    const counter = screen.getByTestId('counter-count');
+    const decrementButton = screen.getByRole('button', {
+      name: /decrement/i,
+    });
 
-  it.todo(
+    await act(async () => {
+      await userEvent.click(decrementButton);
+    });
+
+    expect(counter).toHaveTextContent('0');
+    expect(decrementButton).toBeDisabled();
+  });
+
+  it(
     'resets the count when the "Reset" button is clicked',
-    async () => {},
+    async () => {
+      render(<Counter initialCount={1} />);
+      const counter = screen.getByTestId('counter-count');
+      const resetButton = screen.getByRole('button', { name: /reset/i });
+
+      await userEvent.click(resetButton);
+      
+      expect(counter).toHaveTextContent('0');
+    },
   );
 
-  it.todo(
+  it(
     'disables the "Decrement" and "Reset" buttons when the count is 0',
-    () => {},
+    () => {
+      render(<Counter />);
+      const counter = screen.getByTestId('counter-count');
+      const decrementButton = screen.getByRole('button', {
+        name: /decrement/i,
+      });
+      const resetButton = screen.getByRole('button', { name: /reset/i });
+      
+      expect(counter).toHaveTextContent('0');
+      expect(decrementButton).toBeDisabled();
+      expect(resetButton).toBeDisabled();
+    },
   );
 
-  it.todo('updates the document title based on the count', async () => {});
+  it('updates the document title based on the count', async () => {
+    const { getByRole } = render(<Counter />);
+    const incrementButton = getByRole('button', {
+      name: /increment/i,
+    });
+
+    await act(async () => {
+      await userEvent.click(incrementButton);
+    });
+
+    expect(document.title).toEqual(expect.stringContaining('1 day'));
+  });
 });
