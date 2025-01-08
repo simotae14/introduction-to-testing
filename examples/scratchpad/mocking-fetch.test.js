@@ -1,5 +1,9 @@
-import { test, vi, expect } from 'vitest';
+import { afterEach, test, vi, expect } from 'vitest';
 import { getData } from './getData';
+
+afterEach(() => {
+  vi.clearAllMocks(); // Reset all mocked calls between tests
+});
 
 test('fetches data successfully from API', async () => {
   // Mock the fetch function.
