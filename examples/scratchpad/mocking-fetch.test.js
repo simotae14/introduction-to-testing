@@ -31,3 +31,10 @@ test('fetches data successfully from API', async () => {
     'https://jsonplaceholder.typicode.com/todos/1',
   );
 });
+
+test('handles fetch failure', async () => {
+  global.fetch = vi.fn(() => Promise.reject('API is down'));
+
+  await expect(getData()).rejects.toEqual('API is down');
+  expect(fetch).toHaveBeenCalledTimes(1);
+});
