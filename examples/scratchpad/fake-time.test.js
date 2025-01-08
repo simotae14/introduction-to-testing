@@ -23,7 +23,7 @@ describe('delay function', () => {
     delay(callback);
 
     // simulate the passage of time
-    vi.advanceTimersByTime(2000);
+    vi.advanceTimersToNextTimer();
 
     expect(callback).toHaveBeenCalled();
   });
