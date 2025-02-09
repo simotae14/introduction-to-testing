@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "vitest --ui",
-    "test": "vitest"
+    "test": "vitest",
+    "update": "vitest --update"
   },
   "repository": {
     "type": "git",
