@@ -3,16 +3,21 @@ import React, { useEffect, useState } from 'react';
 
 export function UserProfile() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('/api/user')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data);
-        return setUser(data);
+      .then((res) => {
+        if (!res.ok) throw 'Failed to load the user';
+        return res.json();
+      })
+      .then(setUser)
+      .catch((err) => {
+        setError(err);
       });
   }, []);
 
+  if (error) return <div>{error}</div>;
   if (!user) return <div>Loading…</div>;
 
   return (
