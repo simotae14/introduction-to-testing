@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`formats user information correctly 1`] = `"User: Alice, Age: 30"`;
